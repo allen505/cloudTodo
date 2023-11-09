@@ -5,5 +5,3 @@ services:
       - "6000:5000"
   mongodb:
     image: mongo
-volumes:
-  logvolume01: {}
