@@ -16,4 +16,4 @@ ENV FLASK_RUN_PORT=5000
 EXPOSE 5000
 
 # CMD ["python", "app.py"]
-CMD ["flask", "run"]
+CMD ["flask", "run", "--host", "0.0.0.0"]
