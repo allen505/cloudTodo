@@ -6,6 +6,8 @@ import os
 
 mongodb_host = os.environ.get('MONGO_HOST', 'localhost')
 mongodb_port = int(os.environ.get('MONGO_PORT', '27017'))
+# uri = "mongodb://{}:{}@{}:{}/{}?authSource=admin".format("admin", "pass", mongodb_host, mongodb_port, "camp2016")
+# client = MongoClient(uri)
 client = MongoClient(mongodb_host, mongodb_port, username='flaskApp', password='easy', authSource="camp2016")
 db = client.camp2016    #Select the database
 todos = db.todo #Select the collection
