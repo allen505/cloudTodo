@@ -13,7 +13,9 @@ ENV FLASK_APP=app.py
 ENV FLASK_RUN_HOST=0.0.0.0
 ENV FLASK_RUN_PORT=5000
 
+ENV MONGO_HOST=mongodb
+ENV MONGO_PORT=27017
+
 EXPOSE 5000
 
-# CMD ["python", "app.py"]
 CMD ["flask", "run", "--host", "0.0.0.0"]

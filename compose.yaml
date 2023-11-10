@@ -5,5 +5,15 @@ services:
     build: .
     ports:
       - "5001:5000"
+    volumes:
+      - .:/app
+    links:
+      - "mongodb:db"
+    depends_on:
+      - mongodb
+
   mongodb:
     image: mongo:latest
+    volumes:
+      - ./db:/data/db:rw
+      - ./dbconfig:/data/configdb:rw

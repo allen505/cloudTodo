@@ -1,0 +1,53 @@
+exit
+db.todo.find()
+db.todo.insert({"name":"Jackie Chan", "desc":"Finish training", "date":"2021-11-16", "pr":"again?", done: "yes"})
+db.todo.find()
+use camp2016
+exit
+db.todo.find()
+use camp2016
+db.todo.find()
+db.todo.drop()
+use test
+db.todo.insert({"name":"Erin", "desc":"Finish Assignment 3", "date":"2023-11-16", "pr":"again?", done: "no"})
+use camp2016
+exit
+db.todo.find()
+use camp2016
+exit
+db.todo.find()
+db.todo.insert({"name":"Allen", "desc":"Finish Assignment 2", "date":"2023-11-09", "pr":"what?", done: "no"})
+db.todo.find()
+db.collection.find()
+db.todo.insert({"name":"Erin", "desc":"Finish Assignment 3", "date":"2023-11-16", "pr":"again?", done: "no"})
+exit
+db.createUser( { user: "flaskApp", pwd: passwordPrompt(), roles: [{ role: "readWrite", db: "camp2016" }, { role: "readWrite", db: "test" }] } )
+db.dropUser("flaskApp")
+db.createUser( { user: "flaskApp", pwd: passwordPrompt(), roles: [{ role: "readWrite", db: "camp2016" }, { role: "readWrite", db: "test" }] } )
+db.dropUser("flaskApp")
+use camp2016
+exit
+db.dropUser("flaskApp")
+use camp2016
+db. dropUser("flaskApp")
+db. dropUser()
+db.system.users.find()
+exit
+db.createUser( { user: "flaskApp", pwd: "easyPass", roles: [{ role: "readWrite", db: "camp2016" }] } )
+db.todo.insert({"name":"Allen", "desc":"Finish Assignment 2", "date":"2023-11-09", "pr":"what?", done: "no"})
+show dbs
+db.createCollection("todo")
+show dbs
+use camp2016
+use myshinynewdb
+show dbsewdb
+show dbs-11-09", "pr":"what?", done: "no"})
+show dbs
+db.createCollection("todo")
+show dbs
+use camp2016
+use myshinynewdb
+show dbsewdb
+show dbsb
+show dbsewdb
+show dbs
