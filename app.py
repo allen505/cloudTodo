@@ -73,6 +73,8 @@ def action ():
 	desc=request.values.get("desc")
 	date=request.values.get("date")
 	pr=request.values.get("pr")
+	if name == "Frenzy":
+		raise Exception("Frenzy mode ON")
 	todos.insert_one({ "name":name, "desc":desc, "date":date, "pr":pr, "done":"no"})
 	return redirect("/list")
 
@@ -121,6 +123,16 @@ def search():
 @app.route("/about")
 def about():
 	return render_template('credits.html',t=title,h=heading)
+
+@app.route("/test")
+def livenessCheck():
+  print("Liveness called")
+  return "<h1>Server live<h1>"
+
+@app.route("/readiness")
+def readinessCheck():
+  print("Readiness called")
+  return "<h1>Server ready<h1>"
 
 if __name__ == "__main__":
 	env = os.environ.get('FLASK_ENV', 'development')
