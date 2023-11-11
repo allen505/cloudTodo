@@ -56,7 +56,10 @@ spec:
         - "-c"
         - |
           apt-get update && apt-get install -y mongodb-clients
-          mongod --auth
+          mongod --auth --bind_ip_all
+        # - "mongod"
+        # - "--auth"
+        # - "--bind_ip_all"
         env:
         - name: MONGO_INITDB_ROOT_USERNAME
           value: "root"
@@ -88,4 +91,4 @@ spec:
   - protocol: TCP
     port: 27017
     targetPort: 27017
-  # type: ClusterIP
+  type: ClusterIP
