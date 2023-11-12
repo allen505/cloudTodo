@@ -27,7 +27,7 @@ spec:
     spec:
       containers:
       - name: flask-app
-        image: erinamiller/cloudtodo:latest
+        image: erinamiller/cloudtodo:v1
         ports:
         - containerPort: 5000
         env:
@@ -39,23 +39,23 @@ spec:
           value: "development"
         - name: FLASK_RUN_PORT
           value: "5000"
-        livenessProbe:
-          httpGet:
-            path: /liveness
-            port: 5000
-          initialDelaySeconds: 5
-          timeoutSeconds: 2
-          periodSeconds: 5
-          failureThreshold: 2
+        # livenessProbe:
+        #   httpGet:
+        #     path: /liveness
+        #     port: 5000
+        #   initialDelaySeconds: 5
+        #   timeoutSeconds: 2
+        #   periodSeconds: 5
+        #   failureThreshold: 2
         
-        readinessProbe:
-          httpGet:
-            path: /readiness
-            port: 5000
-          initialDelaySeconds: 10
-          timeoutSeconds: 3
-          periodSeconds: 10
-          failureThreshold: 3
+        # readinessProbe:
+        #   httpGet:
+        #     path: /readiness
+        #     port: 5000
+        #   initialDelaySeconds: 10
+        #   timeoutSeconds: 3
+        #   periodSeconds: 10
+        #   failureThreshold: 3
 
 ---
 
@@ -81,15 +81,6 @@ spec:
         volumeMounts:
         - name: app-data
           mountPath: /data/db
-        command:
-        - "bash"
-        - "-c"
-        - |
-          apt-get update && apt-get install -y mongodb-clients
-          mongod --bind_ip_all
-        # - "mongod"
-        # - "--auth"
-        # - "--bind_ip_all"
         env:
         - name: MONGO_INITDB_ROOT_USERNAME
           value: "root"
@@ -107,14 +98,13 @@ kind: Service
 metadata:
   name: flask-app-service
 spec:
-  type: NodePort
+  type: LoadBalancer
   selector:
     app: flask-app
   ports:
-  - protocol: TCP
-    port: 5000
-    targetPort: 5000
-  # type: LoadBalancer
+    - protocol: TCP
+      port: 5000
+      targetPort: 5000
 
 ---
 
