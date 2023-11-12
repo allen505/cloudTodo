@@ -23,6 +23,16 @@ def redirect_url():
 		request.referrer or \
 		url_for('index')
 
+@app.route("/liveness")
+def livenessCheck():
+  print("Liveness called")
+  return "<h1>Server live<h1>"
+
+@app.route("/readiness")
+def readinessCheck():
+  print("Readiness called")
+  return "<h1>Server ready<h1>"
+
 @app.route("/list")
 def lists ():
 	#Display the all Tasks
@@ -66,6 +76,15 @@ def done ():
 #def add():
 #	return render_template('add.html',h=heading,t=title)
 
+@app.route("/shutdown")
+def shutdown ():
+	func = request.environ.get('werkzeug.server.shutdown')
+	x = 5 / 0
+	if func is None:
+		raise RuntimeError('Not running with the Werkzeug Server')
+	func()
+	return "Shutting down"
+
 @app.route("/action", methods=['POST'])
 def action ():
 	#Adding a Task
@@ -73,8 +92,6 @@ def action ():
 	desc=request.values.get("desc")
 	date=request.values.get("date")
 	pr=request.values.get("pr")
-	if name == "Frenzy":
-		raise Exception("Frenzy mode ON")
 	todos.insert_one({ "name":name, "desc":desc, "date":date, "pr":pr, "done":"no"})
 	return redirect("/list")
 
@@ -123,16 +140,6 @@ def search():
 @app.route("/about")
 def about():
 	return render_template('credits.html',t=title,h=heading)
-
-@app.route("/test")
-def livenessCheck():
-  print("Liveness called")
-  return "<h1>Server live<h1>"
-
-@app.route("/readiness")
-def readinessCheck():
-  print("Readiness called")
-  return "<h1>Server ready<h1>"
 
 if __name__ == "__main__":
 	env = os.environ.get('FLASK_ENV', 'development')
