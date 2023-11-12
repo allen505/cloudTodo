@@ -30,9 +30,6 @@ spec:
         image: erinamiller/cloudtodo:latest
         ports:
         - containerPort: 5000
-        volumeMounts:
-        - name: app-data
-          mountPath: /app/data
         env:
         - name: MONGO_HOST
           value: mongodb-service
@@ -60,10 +57,6 @@ spec:
           periodSeconds: 10
           failureThreshold: 3
 
-      volumes:
-      - name: app-data
-        persistentVolumeClaim:
-          claimName: app-data-pvc
 ---
 
 apiVersion: apps/v1
@@ -85,6 +78,9 @@ spec:
         image: mongo:latest
         ports:
         - containerPort: 27017
+        volumeMounts:
+        - name: app-data
+          mountPath: /data/db
         command:
         - "bash"
         - "-c"
@@ -99,6 +95,10 @@ spec:
           value: "root"
         - name: MONGO_INITDB_ROOT_PASSWORD
           value: "pass"
+      volumes:
+      - name: app-data
+        persistentVolumeClaim:
+          claimName: app-data-pvc
 
 ---
 
