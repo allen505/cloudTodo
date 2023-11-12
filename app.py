@@ -23,6 +23,16 @@ def redirect_url():
 		request.referrer or \
 		url_for('index')
 
+@app.route("/liveness")
+def livenessCheck():
+  print("Liveness called")
+  return "<h1>Server live<h1>"
+
+@app.route("/readiness")
+def readinessCheck():
+  print("Readiness called")
+  return "<h1>Server ready<h1>"
+
 @app.route("/list")
 def lists ():
 	#Display the all Tasks
@@ -65,6 +75,15 @@ def done ():
 #@app.route("/add")
 #def add():
 #	return render_template('add.html',h=heading,t=title)
+
+@app.route("/shutdown")
+def shutdown ():
+	func = request.environ.get('werkzeug.server.shutdown')
+	x = 5 / 0
+	if func is None:
+		raise RuntimeError('Not running with the Werkzeug Server')
+	func()
+	return "Shutting down"
 
 @app.route("/action", methods=['POST'])
 def action ():

@@ -35,23 +35,37 @@ spec:
           mountPath: /app/data
         env:
         - name: MONGO_HOST
-          # value: "mongodb-service.default.svc.cluster.local"
           value: mongodb-service
         - name: MONGO_PORT
           value: "27017"
         - name: FLASK_ENV
           value: "development"
-        # - name: FLASK_APP
-        #   value: "app.py"
-        # - name: FLASK_RUN_HOST
-        #   value: "0.0.0.0"
         - name: FLASK_RUN_PORT
           value: "5000"
+        livenessProbe:
+          httpGet:
+            path: /liveness
+            port: 5000
+          initialDelaySeconds: 5
+          timeoutSeconds: 2
+          periodSeconds: 5
+          failureThreshold: 2
+        
+        readinessProbe:
+          httpGet:
+            path: /readiness
+            port: 5000
+          initialDelaySeconds: 10
+          timeoutSeconds: 3
+          periodSeconds: 10
+          failureThreshold: 3
+
       volumes:
       - name: app-data
         persistentVolumeClaim:
           claimName: app-data-pvc
 ---
+
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -85,7 +99,9 @@ spec:
           value: "root"
         - name: MONGO_INITDB_ROOT_PASSWORD
           value: "pass"
+
 ---
+
 apiVersion: v1
 kind: Service
 metadata:
@@ -99,7 +115,9 @@ spec:
     port: 5000
     targetPort: 5000
   # type: LoadBalancer
+
 ---
+
 apiVersion: v1
 kind: Service
 metadata:
