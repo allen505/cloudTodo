@@ -10,13 +10,20 @@ spec:
       storage: 1Gi
   storageClassName:
     gp2
+
 ---
+
 apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: flask-app-deployment
 spec:
-  replicas: 1
+  replicas: 2
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0
   selector:
     matchLabels:
       app: flask-app
@@ -27,7 +34,7 @@ spec:
     spec:
       containers:
       - name: flask-app
-        image: erinamiller/cloudtodo:v1
+        image: erinamiller/cloudtodo:v2
         ports:
         - containerPort: 5000
         env:
