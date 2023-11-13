@@ -46,23 +46,23 @@ spec:
           value: "development"
         - name: FLASK_RUN_PORT
           value: "5000"
-        # livenessProbe:
-        #   httpGet:
-        #     path: /liveness
-        #     port: 5000
-        #   initialDelaySeconds: 5
-        #   timeoutSeconds: 2
-        #   periodSeconds: 5
-        #   failureThreshold: 2
+        livenessProbe:
+          httpGet:
+            path: /liveness
+            port: 5000
+          initialDelaySeconds: 5
+          timeoutSeconds: 2
+          periodSeconds: 5
+          failureThreshold: 2
         
-        # readinessProbe:
-        #   httpGet:
-        #     path: /readiness
-        #     port: 5000
-        #   initialDelaySeconds: 10
-        #   timeoutSeconds: 3
-        #   periodSeconds: 10
-        #   failureThreshold: 3
+        readinessProbe:
+          httpGet:
+            path: /readiness
+            port: 5000
+          initialDelaySeconds: 10
+          timeoutSeconds: 3
+          periodSeconds: 10
+          failureThreshold: 3
 
 ---
 
